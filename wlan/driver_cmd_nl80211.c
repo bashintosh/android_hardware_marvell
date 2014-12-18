@@ -10,7 +10,6 @@
  *
  */
 
-#define LOG_NDEBUG 0
 #include "driver_nl80211.h"
 #include "wpa_supplicant_i.h"
 #include "config.h"
@@ -22,8 +21,6 @@
 #define WPA_PS_DISABLED		1
 
 #define MAX_WPSP2PIE_CMD_SIZE		512
-
-#define os_strncpy strncpy
 
 typedef struct android_wifi_priv_cmd {
 	char *buf;
@@ -246,7 +243,7 @@ static int wpa_driver_set_backgroundscan_params(void *priv, char *cmd)
 
 	memset(&ifr, 0, sizeof(ifr));
 	memset(&priv_cmd, 0, sizeof(priv_cmd));
-	os_strncpy(ifr.ifr_name, bss->ifname, IFNAMSIZ);
+	os_strlcpy(ifr.ifr_name, bss->ifname, IFNAMSIZ);
 
 	priv_cmd.buf = buf;
 	priv_cmd.used_len = NL80211_BGCAN_BUF_LEN;
@@ -321,7 +318,7 @@ int wpa_driver_nl80211_driver_cmd(void *priv, char *cmd, char *buf,
 		}
 		memset(&ifr, 0, sizeof(ifr));
 		memset(&priv_cmd, 0, sizeof(priv_cmd));
-		os_strncpy(ifr.ifr_name, bss->ifname, IFNAMSIZ);
+		os_strlcpy(ifr.ifr_name, bss->ifname, IFNAMSIZ);
 
 		priv_cmd.buf = buf;
 		priv_cmd.used_len = buf_len;
