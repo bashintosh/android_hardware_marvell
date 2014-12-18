@@ -10,6 +10,8 @@
  *
  */
 
+#define LOG_NDEBUG 0
+
 #include "driver_nl80211.h"
 #include "wpa_supplicant_i.h"
 #include "config.h"
